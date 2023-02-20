@@ -6,8 +6,8 @@ class car():
     def get_color(self):
         return self.color
 
-def color_get(self):
-    return self.color
+def color_get(obj_name):
+    return obj_name.color
 
 Tesla_Y = car("Y", 60000, "night blue")
 

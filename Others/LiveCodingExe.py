@@ -43,7 +43,7 @@ print(mysum(None))
 print(mysum(0))
 print(mysum(False))
 
-name = "Alex"
+name = "john"
 age = 0
   
 if name == "Alex" or name == "John" and age >= 2:  #prints 'Hello! Welcome.' without using parenthesis in the condition
