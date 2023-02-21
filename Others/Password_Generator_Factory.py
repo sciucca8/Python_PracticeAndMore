@@ -3,7 +3,7 @@ import random
 def password_pool(pool):
     return lambda length: "".join(random.choices(pool, k = length))
 
-alpha_pass = password_pool("abc")
+alpha_pass = password_pool("abcdefghilmnop")
 symbol_pass  = password_pool("!@#")
 num_pass = password_pool("345123")
 print(num_pass(8))

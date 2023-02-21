@@ -59,18 +59,23 @@ movie = ia.get_movie('0133093')
 #print(movie['cast'])
 for y in movie['cast']:
     #print(y)
-    #print(type(y.currentRole['name']))
-    #print(type(y.currentRole))
+     
+    #print(y)
+    print(y.currentRole['name'])
+    print(y.currentRole)
     act_char[y['name']] = y.currentRole['name']
     #print(act_char)
 print(act_char)
 #print(dir(y))
-print(y.myName)
+
 
 keanu = ia.get_person('0000206')
 print(type(keanu))
 print(keanu.infoset2keys)
 print(keanu['main'])
+
+
+
 
 
 
@@ -81,7 +86,7 @@ actor = ia.get_person('0000206')
 movie = ia.get_movie('0133093')
 print(dir(movie))
 print(dir(actor))
-print(actor._Container_role())
+print(actor["_Container__role"])
 ia.update(actor, info = ['awards',  'main'])
 print(actor.current_info)
 print(actor['main'])
@@ -100,6 +105,15 @@ print(ia.get_person_infoset())
 print(ia.get_company_infoset())
 
 
+
+from imdb import Cinemagoer
+
+ia = Cinemagoer()
+avatar = ia.get_movie('0499549')
+#print(avatar.current_info)
+#print(avatar.infoset2keys)
+print(avatar["synopsis"])
+#ia.update(avatar, info = ["main", "plot", "synopsis"])
 
 
 

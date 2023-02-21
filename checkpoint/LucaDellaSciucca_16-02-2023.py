@@ -11,11 +11,11 @@ def retrieve_cast(movie_id, cinemagoer_instance):                               
 	movie_cast = {}                                                                                                 #If not available, it returns a string "N.A." (not available).                                                                                                  
                                                                                                                     #If more roles are available for the same actor, it retrieves the first one
 	if 'cast' in movie.keys(): # some movies have no cast info                                                      #showed by the API.
-		for actor in movie['cast']:                                                                                 #Args:
-			try:                                                                                                    #	movie_id: string with the IMDB id of the movie
-				first_role = actor.currentRole[0] if isinstance(actor.currentRole, list) else actor.currentRole     #	cinemagoer_instance: instance of the Cinemagoer class
-				movie_cast[actor['name']] = first_role.data['name']                                                 #Returns:
-			except KeyError:                                                                                        #	A dict mapping names of the actors with the names of their characters.
+		for actor in movie['cast']:                                                                                 # Args:
+			try:                                                                                                    #	 movie_id: string with the IMDB id of the movie
+				first_role = actor.currentRole[0] if isinstance(actor.currentRole, list) else actor.currentRole     #	 cinemagoer_instance: instance of the Cinemagoer class
+				movie_cast[actor['name']] = first_role.data['name']                                                 # Returns:
+			except KeyError:                                                                                        #	 A dict mapping names of the actors with the names of their characters.
 				movie_cast[actor['name']] = "N.A."
 
 	return movie_cast
