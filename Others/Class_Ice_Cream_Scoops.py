@@ -40,36 +40,39 @@ class Scoop:
     
     @classmethod
     def choose_scoops(cls): 
-        size = input("How many scoops for your icecream?: ")
-        while size != int:
+        size = int(input("How many scoops for your icecream?: "))
+        while type(size) != int:
             size = input("choose the NUMBER of scoops")
-        print(size)
+        
         menu = list(enumerate(Scoop.available))
         icecream = []
         n = 0
+
         while n < size:
             n += 1
             scoop = input(f"Available FLAVORS {menu}\n Type the flavor or the corrisponding number to have it in the icecream: ")
-            for i in range(len(menu)):
-                if scoop == menu[i][0] or scoop == menu[i][1]:
+            for i in range(0, len(menu)):
+                if int(scoop) == menu[i][0] or scoop == menu[i][1]:
                     icecream.append(Scoop(menu[i][1]))
             if len(icecream) != n:
                 print("NOT available")
                 n -= 1
         return icecream  
 
+random_icecream = Scoop.create_scoops_random()
+for scoop in random_icecream:
+    print(scoop.flavor)
+
 icecream = Scoop.choose_scoops()
-print(icecream[1].flavor)
+for scoop in icecream:
+    print(scoop.flavor)
             
 
 
 
 
 
-icecream = Scoop.create_scoops_random()
-print(icecream)
-for scoop in icecream:
-    print(scoop.flavor)
+
 
 
 
