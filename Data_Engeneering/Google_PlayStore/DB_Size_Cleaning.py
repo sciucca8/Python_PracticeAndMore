@@ -1,18 +1,28 @@
 import pandas as pd
 import numpy as np
 
+db = pd.read_csv('googleplaystore.csv')
+
+def correction_row_10472(db):
+    col_ls = list(db.columns)
+    row_10472 = np.where(db.Size == "1,000+")[0][0]
+    
+    for i in range(len(col_ls[2:])):
+
+        db[col_ls[len(col_ls) - (i + 1)]][row_10472] = db[col_ls[len(col_ls) - (i + 2)]][row_10472]
+
+    db.Category[10472] = "Lifestyle"
+    return db
+
 def size_cleaning(db):
 
     for i in range(len(db)):
-        if "," in db.Size[i]:
-            db.Size[i] = float("".join(list(x for x in db.Size[i][:len(db.Size[i]) - 1] if x != ",")))
 
-        if type(db.Size[i]) != float:
-            if db.Size[i][-1] == "k":
-                db.Size[i] = round(float(float(db.Size[i][: len(db.Size[i]) - 1]) / 1024), 1)
+        if db.Size[i][-1] == "k":
+            db.Size[i] = round(float(db.Size[i][: len(db.Size[i]) - 1]), 1)
 
-            if type(db.Size[i]) != float and db.Size[i] != "Varies with device":
-                db.Size[i] = round(float(db.Size[i][: len(db.Size[i]) - 1]), 1)
+        if type(db.Size[i]) != float and db.Size[i] != "Varies with device":
+            db.Size[i] = round(float(float(db.Size[i][: len(db.Size[i]) - 1]) * 1024), 1)
 
     db.Size = db.Size.replace("Varies with device", None)
 
@@ -20,12 +30,17 @@ def size_cleaning(db):
 
     db.Size = db.Size.fillna(avg_size)
 
-    db.rename(columns={"Size": "Size(MB)"}, inplace=True)
+    db.rename(columns={"Size": "Size KB"}, inplace=True)
     
     return db
 
-db = size_cleaning(pd.read_csv("googleplaystore.csv"))
-print(db["Size(MB)"])
+db = correction_row_10472(db)
+#print(db.iloc[10472])
+db = size_cleaning(db)
+for x in db["Size KB"]:
+    print(x)
+print(db.info())
+
 
 
 

@@ -1,3 +1,14 @@
+import numpy as np
+
+a = np.array([[1, 1], [2, 2], [3, 3]])
+b = a.flatten()
+b = np.insert(b, [2, 2], [7.13, False])
+print(b)
+
+
+
+
+
 list1 = ["lion", "monkey", "dog","fish"]
 tuple1 = ("lion", "monkey", "dog","fish")
 set1 = {"lion", "monkey", "dog","fish"}
