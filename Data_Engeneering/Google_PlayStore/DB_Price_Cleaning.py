@@ -1,32 +1,32 @@
 import pandas as pd
 import numpy as np
 
-db = pd.read_csv("googleplaystore.csv")
+df = pd.read_csv("googleplaystore.csv")
 
-def correction_row_10472(db):
-    col_ls = list(db.columns)
-    row_10472 = np.where(db.Size == "1,000+")[0][0]
+def correction_row_10472(df):
+    col_ls = list(df.columns)
+    row_10472 = np.where(df.Size == "1,000+")[0][0]
     
     for i in range(len(col_ls[2:])):
 
-        db[col_ls[len(col_ls) - (i + 1)]][row_10472] = db[col_ls[len(col_ls) - (i + 2)]][row_10472]
+        df[col_ls[len(col_ls) - (i + 1)]][row_10472] = df[col_ls[len(col_ls) - (i + 2)]][row_10472]
 
-    db.Category[10472] = "Lifestyle"
-    return db
+    df.Category[10472] = "Lifestyle"
+    return df
 
-db = correction_row_10472(db)
+df = correction_row_10472(df)
 
-def price_cleaning(db):
+def price_cleaning(df):
 
-    for i in range(len(db)):
-        if db.Price[i] != "0":
-            db.Price[i] = "".join(list(x for x in db.Price[i][1:] if x != ","))
+    for i in range(len(df)):
+        if df.Price[i] != "0":
+            df.Price[i] = "".join(list(x for x in df.Price[i][1:] if x != ","))
 
-    db.Price = db.Price.astype(float)
-    db.rename(columns={"Price": "Price $"}, inplace=True)
-    return db
+    df.Price = df.Price.astype(float)
+    df.rename(columns={"Price": "Price $"}, inplace=True)
+    return df
 
-db = price_cleaning(db)
-print(db.info())
-print(db["Price $"].sample(10))
+df = price_cleaning(df)
+print(df.info())
+print(df["Price $"].sample(10))
     

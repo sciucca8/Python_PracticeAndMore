@@ -1,45 +1,45 @@
 import pandas as pd
 import numpy as np
 
-db = pd.read_csv('googleplaystore.csv')
+df = pd.read_csv('googleplaystore.csv')
 
-def correction_row_10472(db):
-    col_ls = list(db.columns)
-    row_10472 = np.where(db.Size == "1,000+")[0][0]
+def correction_row_10472(df):
+    col_ls = list(df.columns)
+    row_10472 = np.where(df.Size == "1,000+")[0][0]
     
     for i in range(len(col_ls[2:])):
 
-        db[col_ls[len(col_ls) - (i + 1)]][row_10472] = db[col_ls[len(col_ls) - (i + 2)]][row_10472]
+        df[col_ls[len(col_ls) - (i + 1)]][row_10472] = df[col_ls[len(col_ls) - (i + 2)]][row_10472]
 
-    db.Category[10472] = "Lifestyle"
-    return db
+    df.Category[10472] = "Lifestyle"
+    return df
 
-def size_cleaning(db):
+def size_cleaning(df):
 
-    for i in range(len(db)):
+    for i in range(len(df)):
 
-        if db.Size[i][-1] == "k":
-            db.Size[i] = round(float(db.Size[i][: len(db.Size[i]) - 1]), 1)
+        if df.Size[i][-1] == "k":
+            df.Size[i] = round(float(df.Size[i][: len(df.Size[i]) - 1]), 1)
 
-        if type(db.Size[i]) != float and db.Size[i] != "Varies with device":
-            db.Size[i] = round(float(float(db.Size[i][: len(db.Size[i]) - 1]) * 1024), 1)
+        if type(df.Size[i]) != float and df.Size[i] != "Varies with device":
+            df.Size[i] = round(float(float(df.Size[i][: len(df.Size[i]) - 1]) * 1024), 1)
 
-    db.Size = db.Size.replace("Varies with device", None)
+    df.Size = df.Size.replace("Varies with device", None)
 
-    avg_size = round(db["Size"].mean(), 1)
+    avg_size = round(df["Size"].mean(), 1)
 
-    db.Size = db.Size.fillna(avg_size)
+    df.Size = df.Size.fillna(avg_size)
 
-    db.rename(columns={"Size": "Size KB"}, inplace=True)
+    df.rename(columns={"Size": "Size KB"}, inplace=True)
     
-    return db
+    return df
 
-db = correction_row_10472(db)
-#print(db.iloc[10472])
-db = size_cleaning(db)
-for x in db["Size KB"]:
+df = correction_row_10472(df)
+#print(df.iloc[10472])
+df = size_cleaning(df)
+for x in df["Size KB"]:
     print(x)
-print(db.info())
+print(df.info())
 
 
 
@@ -64,27 +64,27 @@ print(db.info())
 
 
 
-"""def size_cleaning(db):
+"""def size_cleaning(df):
 
-    db.rename(columns={"Size": "Size(MB)"}, inplace=True)                                                               #Inizio pulizia Colonna "Size"
+    df.rename(columns={"Size": "Size(MB)"}, inplace=True)                                                               #Inizio pulizia Colonna "Size"
                                                                 
-    for i in range(len(db["Size(MB)"])):   
+    for i in range(len(df["Size(MB)"])):   
 
-        if "," in db["Size(MB)"][i]:
-            ls_size = list(db["Size(MB)"][i])
-            ls_size.pop(db["Size(MB)"][i].index(","))
-            db["Size(MB)"][i] = "".join(ls_size)
+        if "," in df["Size(MB)"][i]:
+            ls_size = list(df["Size(MB)"][i])
+            ls_size.pop(df["Size(MB)"][i].index(","))
+            df["Size(MB)"][i] = "".join(ls_size)
 
-        if db["Size(MB)"][i][-1] == "M" or db["Size(MB)"][i][-1] == "+": 
-            db["Size(MB)"][i] = float(db["Size(MB)"][i][0:len(db["Size(MB)"][i]) - 1])
+        if df["Size(MB)"][i][-1] == "M" or df["Size(MB)"][i][-1] == "+": 
+            df["Size(MB)"][i] = float(df["Size(MB)"][i][0:len(df["Size(MB)"][i]) - 1])
 
-        elif db["Size(MB)"][i][-1] == "k":
-            db["Size(MB)"][i] = round(float(float(db["Size(MB)"][i][0:len(db["Size(MB)"][i]) - 1]) / 1024), 2)           #Fine pulizia Colonna "Size"   
+        elif df["Size(MB)"][i][-1] == "k":
+            df["Size(MB)"][i] = round(float(float(df["Size(MB)"][i][0:len(df["Size(MB)"][i]) - 1]) / 1024), 2)           #Fine pulizia Colonna "Size"   
 
-    return db
+    return df
 
-db = pd.read_csv("googleplaystore.csv")
-db_clear = size_cleaning(db)
-print(db_clear.sample(200))
+df = pd.read_csv("googleplaystore.csv")
+df_clear = size_cleaning(df)
+print(df_clear.sample(200))
 """
 

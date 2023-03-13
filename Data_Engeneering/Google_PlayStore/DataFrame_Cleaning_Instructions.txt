@@ -1,6 +1,6 @@
 correggere riga 10472
 App: eliminare duplicati (dizionario nome app: count(nome app))
-Category: Ci sono due valori TOOLS (tentare strip dei valori "TOOLS")  
+Category: Comparare con Genres  
 Rating: Sostituire valori NaN
 Reviews: Tutti i valori in INT	
 Size: Sostituire i valori "Varies with devide". Tutti i valori in float. Formattare i valori in byte

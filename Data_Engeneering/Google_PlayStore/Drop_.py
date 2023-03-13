@@ -1,8 +1,11 @@
 import numpy as np
 import pandas as pd
 
-db = pd.read_csv('googleplaystore.csv')
+df = pd.read_csv('googleplaystore.csv')
 
-db = db.drop(columns=["Current Ver","Android Ver"])
+def drop_unused(df):
+    df = df.drop(columns=["Current Ver","Android Ver"])
+    return df
 
-print(db.columns)
+df = drop_unused(df)
+print(df.columns)

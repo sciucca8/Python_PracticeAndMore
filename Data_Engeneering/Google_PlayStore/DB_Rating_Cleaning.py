@@ -1,29 +1,29 @@
 import pandas as pd
 import numpy as np
 
-db = pd.read_csv("googleplaystore.csv")
+df = pd.read_csv("googleplaystore.csv")
 
-def correction_row_10472(db):
-    col_ls = list(db.columns)
-    row_10472 = np.where(db.Size == "1,000+")[0][0]
+def correction_row_10472(df):
+    col_ls = list(df.columns)
+    row_10472 = np.where(df.Size == "1,000+")[0][0]
     
     for i in range(len(col_ls[2:])):
 
-        db[col_ls[len(col_ls) - (i + 1)]][row_10472] = db[col_ls[len(col_ls) - (i + 2)]][row_10472]
+        df[col_ls[len(col_ls) - (i + 1)]][row_10472] = df[col_ls[len(col_ls) - (i + 2)]][row_10472]
 
-    db.Category[10472] = "Lifestyle"
-    return db
+    df.Category[10472] = "Lifestyle"
+    return df
 
-db = correction_row_10472(db)
+df = correction_row_10472(df)
 
-def Rating_Cleaning(db):
-    db.Rating = db.Rating.astype(float)
-    db.Rating.fillna(round(db.Rating.mean(), 1), inplace= True)
-    return db
+def Rating_Cleaning(df):
+    df.Rating = df.Rating.astype(float)
+    df.Rating.fillna(round(df.Rating.mean(), 1), inplace= True)
+    return df
 
 
-db = Rating_Cleaning(db)
-print(db.describe())
+df = Rating_Cleaning(df)
+print(df.describe())
 
-print(db.info())
-print(max(db.Rating))
+print(df.info())
+print(max(df.Rating))
