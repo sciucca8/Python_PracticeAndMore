@@ -13,6 +13,9 @@ def correction_row_10472(df):
     return df
 
 df = pd.read_csv("googleplaystore.csv")
+nullo = df[df["App"].isnull()].index
+print(nullo)
+print(df["App"][8318])
 df = correction_row_10472(df)
 
 df.Reviews = df.Reviews.astype(float)

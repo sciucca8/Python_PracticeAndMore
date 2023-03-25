@@ -24,6 +24,7 @@ class DataPreprocessor:
         return self.lastupdated_cleaning()
     
     def right_shift_col_values(self, col_index, row= 10472):
+
         col_ls = list(self.df.columns)
         
         for i in range(len(col_ls[col_index:])):
@@ -32,6 +33,7 @@ class DataPreprocessor:
 
         if row == 10472:
             self.df.Category[10472] = "Lifestyle"
+
         return self.df
     
     def drop_unused(self):
@@ -50,7 +52,7 @@ class DataPreprocessor:
             return self.df
 
     def app_cleaning(self):
-        self.df = self.df.sort_values(['Last Updated']).drop_duplicates(subset= [col for col in self.df.columns if col != "Category" and col != "Reviews"], keep= "last").sort_index(ignore_index= True)
+        self.df = self.df.sort_values(by= 'Last Updated').drop_duplicates(subset= ["App"], keep= "last").sort_index(ignore_index= True)
         return self.df
     
     def rating_cleaning(self):
@@ -136,24 +138,4 @@ class DataPreprocessor:
         self.content_rating_cleaning()
         return self.lastupdated_cleaning()
 
-         
-
-    
-
-
-
-
-"""
-clean_df.right_shift_col_values(2)
-clean_df.drop_unused()
-clean_df.app_cleaning()
-clean_df.rating_cleaning()
-clean_df.reviews_cleaning()
-clean_df.size_cleaning()
-clean_df.installs_cleaning()
-clean_df.price_cleaning()
-clean_df.content_rating_cleaning()
-clean_df.lastupdated_cleaning()
-print(clean_df.df.info())
-print(clean_df.df.Age_Restriction.value_counts())
-#print(clean_df.df.Age_Restriction[clean_df.df.Age_Restriction == False])"""
+        

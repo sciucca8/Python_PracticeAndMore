@@ -1,0 +1,6 @@
+1) Popularity score = Rating * Installs / 1_000_000 ---- nome app
+2) top/bottom n Apps by Popularity ---- top/bottom, n, only name/whole line
+3) top/bottom free/paid n Apps by popularity
+4) top/bottom n Categories by popularity
+5)
+

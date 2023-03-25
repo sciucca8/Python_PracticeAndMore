@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_csv('googleplaystore.csv')
+print(df[df.App.isnull()].index)
 
 def correction_row_10472(df):
     col_ls = list(df.columns)

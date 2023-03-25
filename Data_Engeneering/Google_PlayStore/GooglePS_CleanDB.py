@@ -9,5 +9,5 @@ ingest = DataIngestor("googleplaystore.csv").extract_()
 preprocess = DataPreprocessor(ingest)
 df = preprocess.cleaning()
 
+#print(preprocess.df_origin.info())
 print(df.info())
-print(preprocess.df_origin.info())
